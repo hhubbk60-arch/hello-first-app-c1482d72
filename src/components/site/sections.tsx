@@ -622,7 +622,7 @@ export function Proof() {
               {Array.from({ length: pages }).map((_, p) => (
                 <div key={p} className="grid w-full shrink-0 gap-5 px-0.5 md:grid-cols-3">
                   {Array.from({ length: perView }).map((_, i) => {
-                    const r = items[(p * perView + i) % items.length];
+                    const r = items[(p * perView + i) % items.length]!;
                     return (
                       <figure
                         key={`${p}-${r.name}`}

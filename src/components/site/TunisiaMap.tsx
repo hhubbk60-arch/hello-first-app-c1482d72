@@ -8,6 +8,11 @@ const PALETTE = [
   "color-mix(in oklab, var(--brand) 66%, white)",
 ];
 
+/* Message route colours: alternating green / red pulses. */
+const ROUTE_GREEN = "oklch(0.65 0.22 145)";
+const ROUTE_RED = "oklch(0.62 0.22 25)";
+const ROUTE_COLOURS = [ROUTE_GREEN, ROUTE_RED];
+
 /* Manual colour index so neighbours never share a colour. */
 const COLOR_BY_NAME: Record<string, number> = {
   Bizerte: 0,

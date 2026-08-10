@@ -160,14 +160,16 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
               <circle key={k} cx={p.cx} cy={p.cy} fill="none" stroke="var(--brand)" strokeWidth={2}>
                 <animate
                   attributeName="r"
-                  values="2;16"
+                  values="2;2;18"
+                  keyTimes="0;0.7;1"
                   dur="5s"
                   begin={`${a.delay + (k === 0 ? 0 : 4.4)}s`}
                   repeatCount="indefinite"
                 />
                 <animate
                   attributeName="opacity"
-                  values="0.7;0"
+                  values="0;0.7;0"
+                  keyTimes="0;0.7;1"
                   dur="5s"
                   begin={`${a.delay + (k === 0 ? 0 : 4.4)}s`}
                   repeatCount="indefinite"

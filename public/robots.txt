@@ -12,5 +12,7 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /leads
+Disallow: /visitors
 
 Sitemap: https://project--48938213-6008-458c-8575-0794dfa685bb.lovable.app/sitemap.xml

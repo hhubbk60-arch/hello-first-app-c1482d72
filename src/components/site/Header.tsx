@@ -40,7 +40,7 @@ export function Header() {
         </div>
       </div>
 
-      <div className="border-b border-border bg-background/95 backdrop-blur-md">
+      <div className="border-b border-border/80 bg-background/85 backdrop-blur-xl">
         <div
           aria-hidden
           className="h-[3px] origin-left bg-brand-light transition-transform duration-150 ease-out"

@@ -135,62 +135,65 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
 
       {/* Message routes: drawing arcs + travelling packets */}
       <g className="pointer-events-none motion-reduce:hidden" filter="url(#tn-glow)">
-        {arcs.map((a) => (
-          <g key={a.id}>
-            <path
-              d={a.d}
-              fill="none"
-              stroke="url(#tn-arc)"
-              strokeWidth={2.4}
-              strokeLinecap="round"
-              strokeDasharray="220 900"
-              opacity={0.85}
-            >
-              <animate
-                attributeName="stroke-dashoffset"
-                from="1120"
-                to="-220"
-                dur="5s"
-                begin={`${a.delay}s`}
-                repeatCount="indefinite"
-              />
-            </path>
+        {arcs.map((a) => {
+          const gradientId = a.colour === ROUTE_GREEN ? "url(#tn-arc-green)" : "url(#tn-arc-red)";
+          return (
+            <g key={a.id}>
+              <path
+                d={a.d}
+                fill="none"
+                stroke={gradientId}
+                strokeWidth={2.4}
+                strokeLinecap="round"
+                strokeDasharray="220 900"
+                opacity={0.9}
+              >
+                <animate
+                  attributeName="stroke-dashoffset"
+                  from="1120"
+                  to="-220"
+                  dur="5s"
+                  begin={`${a.delay}s`}
+                  repeatCount="indefinite"
+                />
+              </path>
 
-            <circle r={5} fill="var(--brand)">
-              <animate
-                attributeName="r"
-                values="0;5;5;0"
-                keyTimes="0;0.08;0.92;1"
-                dur="5s"
-                begin={`${a.delay}s`}
-                repeatCount="indefinite"
-              />
-              <animateMotion dur="5s" begin={`${a.delay}s`} repeatCount="indefinite" path={a.d} />
-            </circle>
-
-            {/* Sender + receiver pulses */}
-            {[a.from, a.to].map((p, k) => (
-              <circle key={k} cx={p.cx} cy={p.cy} fill="none" stroke="var(--brand)" strokeWidth={2}>
+              <circle r={5} fill={a.colour}>
                 <animate
                   attributeName="r"
-                  values="2;2;18"
-                  keyTimes="0;0.7;1"
+                  values="0;5;5;0"
+                  keyTimes="0;0.08;0.92;1"
                   dur="5s"
-                  begin={`${a.delay + (k === 0 ? 0 : 4.4)}s`}
+                  begin={`${a.delay}s`}
                   repeatCount="indefinite"
                 />
-                <animate
-                  attributeName="opacity"
-                  values="0;0.7;0"
-                  keyTimes="0;0.7;1"
-                  dur="5s"
-                  begin={`${a.delay + (k === 0 ? 0 : 4.4)}s`}
-                  repeatCount="indefinite"
-                />
+                <animateMotion dur="5s" begin={`${a.delay}s`} repeatCount="indefinite" path={a.d} />
               </circle>
-            ))}
-          </g>
-        ))}
+
+              {/* Sender + receiver pulses */}
+              {[a.from, a.to].map((p, k) => (
+                <circle key={k} cx={p.cx} cy={p.cy} fill="none" stroke={a.colour} strokeWidth={2}>
+                  <animate
+                    attributeName="r"
+                    values="2;2;18"
+                    keyTimes="0;0.7;1"
+                    dur="5s"
+                    begin={`${a.delay + (k === 0 ? 0 : 4.4)}s`}
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="opacity"
+                    values="0;0.7;0"
+                    keyTimes="0;0.7;1"
+                    dur="5s"
+                    begin={`${a.delay + (k === 0 ? 0 : 4.4)}s`}
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              ))}
+            </g>
+          );
+        })}
       </g>
 
       <g

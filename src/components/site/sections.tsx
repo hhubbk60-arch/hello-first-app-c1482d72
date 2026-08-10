@@ -601,7 +601,7 @@ export function Proof() {
           loading="lazy"
           className="h-full w-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-ink/85 md:bg-gradient-to-r md:from-ink/95 md:via-ink/85 md:to-ink/45" />
+        <div className="absolute inset-0 bg-ink/75 md:bg-gradient-to-r md:from-ink/85 md:via-ink/70 md:to-ink/35" />
       </div>
 
       <div className={SHELL}>

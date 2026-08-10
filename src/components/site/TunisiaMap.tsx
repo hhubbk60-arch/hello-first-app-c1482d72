@@ -8,6 +8,11 @@ const PALETTE = [
   "color-mix(in oklab, var(--brand) 66%, white)",
 ];
 
+/* Message route colours: alternating green / red pulses. */
+const ROUTE_GREEN = "oklch(0.65 0.22 145)";
+const ROUTE_RED = "oklch(0.62 0.22 25)";
+const ROUTE_COLOURS = [ROUTE_GREEN, ROUTE_RED];
+
 /* Manual colour index so neighbours never share a colour. */
 const COLOR_BY_NAME: Record<string, number> = {
   Bizerte: 0,
@@ -71,12 +76,14 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
     const bow = len * 0.28 * (i % 2 === 0 ? 1 : -1);
     const qx = mx + (-dy / len) * bow;
     const qy = my + (dx / len) * bow;
+    const colour = ROUTE_COLOURS[i % ROUTE_COLOURS.length];
     return {
       id: `${a}-${b}`,
       d: `M ${A.cx} ${A.cy} Q ${qx} ${qy} ${B.cx} ${B.cy}`,
       from: A,
       to: B,
       delay: i * 0.75,
+      colour,
     };
   }).filter(Boolean) as Array<{
     id: string;
@@ -84,6 +91,7 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
     from: { cx: number; cy: number };
     to: { cx: number; cy: number };
     delay: number;
+    colour: string;
   }>;
 
   return (
@@ -94,10 +102,15 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
       className={className}
     >
       <defs>
-        <linearGradient id="tn-arc" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="var(--brand)" stopOpacity="0" />
-          <stop offset="50%" stopColor="var(--brand)" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="var(--brand)" stopOpacity="0" />
+        <linearGradient id="tn-arc-green" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor={ROUTE_GREEN} stopOpacity="0" />
+          <stop offset="50%" stopColor={ROUTE_GREEN} stopOpacity="0.95" />
+          <stop offset="100%" stopColor={ROUTE_GREEN} stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id="tn-arc-red" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor={ROUTE_RED} stopOpacity="0" />
+          <stop offset="50%" stopColor={ROUTE_RED} stopOpacity="0.95" />
+          <stop offset="100%" stopColor={ROUTE_RED} stopOpacity="0" />
         </linearGradient>
         <filter id="tn-glow" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="3" result="b" />
@@ -122,62 +135,65 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
 
       {/* Message routes: drawing arcs + travelling packets */}
       <g className="pointer-events-none motion-reduce:hidden" filter="url(#tn-glow)">
-        {arcs.map((a) => (
-          <g key={a.id}>
-            <path
-              d={a.d}
-              fill="none"
-              stroke="url(#tn-arc)"
-              strokeWidth={2.4}
-              strokeLinecap="round"
-              strokeDasharray="220 900"
-              opacity={0.85}
-            >
-              <animate
-                attributeName="stroke-dashoffset"
-                from="1120"
-                to="-220"
-                dur="5s"
-                begin={`${a.delay}s`}
-                repeatCount="indefinite"
-              />
-            </path>
+        {arcs.map((a) => {
+          const gradientId = a.colour === ROUTE_GREEN ? "url(#tn-arc-green)" : "url(#tn-arc-red)";
+          return (
+            <g key={a.id}>
+              <path
+                d={a.d}
+                fill="none"
+                stroke={gradientId}
+                strokeWidth={2.4}
+                strokeLinecap="round"
+                strokeDasharray="220 900"
+                opacity={0.9}
+              >
+                <animate
+                  attributeName="stroke-dashoffset"
+                  from="1120"
+                  to="-220"
+                  dur="5s"
+                  begin={`${a.delay}s`}
+                  repeatCount="indefinite"
+                />
+              </path>
 
-            <circle r={5} fill="var(--brand)">
-              <animate
-                attributeName="r"
-                values="0;5;5;0"
-                keyTimes="0;0.08;0.92;1"
-                dur="5s"
-                begin={`${a.delay}s`}
-                repeatCount="indefinite"
-              />
-              <animateMotion dur="5s" begin={`${a.delay}s`} repeatCount="indefinite" path={a.d} />
-            </circle>
-
-            {/* Sender + receiver pulses */}
-            {[a.from, a.to].map((p, k) => (
-              <circle key={k} cx={p.cx} cy={p.cy} fill="none" stroke="var(--brand)" strokeWidth={2}>
+              <circle r={5} fill={a.colour}>
                 <animate
                   attributeName="r"
-                  values="2;2;18"
-                  keyTimes="0;0.7;1"
+                  values="0;5;5;0"
+                  keyTimes="0;0.08;0.92;1"
                   dur="5s"
-                  begin={`${a.delay + (k === 0 ? 0 : 4.4)}s`}
+                  begin={`${a.delay}s`}
                   repeatCount="indefinite"
                 />
-                <animate
-                  attributeName="opacity"
-                  values="0;0.7;0"
-                  keyTimes="0;0.7;1"
-                  dur="5s"
-                  begin={`${a.delay + (k === 0 ? 0 : 4.4)}s`}
-                  repeatCount="indefinite"
-                />
+                <animateMotion dur="5s" begin={`${a.delay}s`} repeatCount="indefinite" path={a.d} />
               </circle>
-            ))}
-          </g>
-        ))}
+
+              {/* Sender + receiver pulses */}
+              {[a.from, a.to].map((p, k) => (
+                <circle key={k} cx={p.cx} cy={p.cy} fill="none" stroke={a.colour} strokeWidth={2}>
+                  <animate
+                    attributeName="r"
+                    values="2;2;18"
+                    keyTimes="0;0.7;1"
+                    dur="5s"
+                    begin={`${a.delay + (k === 0 ? 0 : 4.4)}s`}
+                    repeatCount="indefinite"
+                  />
+                  <animate
+                    attributeName="opacity"
+                    values="0;0.7;0"
+                    keyTimes="0;0.7;1"
+                    dur="5s"
+                    begin={`${a.delay + (k === 0 ? 0 : 4.4)}s`}
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              ))}
+            </g>
+          );
+        })}
       </g>
 
       <g

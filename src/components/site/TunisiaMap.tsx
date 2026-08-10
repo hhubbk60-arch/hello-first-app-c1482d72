@@ -102,10 +102,15 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
       className={className}
     >
       <defs>
-        <linearGradient id="tn-arc" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="var(--brand)" stopOpacity="0" />
-          <stop offset="50%" stopColor="var(--brand)" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="var(--brand)" stopOpacity="0" />
+        <linearGradient id="tn-arc-green" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor={ROUTE_GREEN} stopOpacity="0" />
+          <stop offset="50%" stopColor={ROUTE_GREEN} stopOpacity="0.95" />
+          <stop offset="100%" stopColor={ROUTE_GREEN} stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id="tn-arc-red" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor={ROUTE_RED} stopOpacity="0" />
+          <stop offset="50%" stopColor={ROUTE_RED} stopOpacity="0.95" />
+          <stop offset="100%" stopColor={ROUTE_RED} stopOpacity="0" />
         </linearGradient>
         <filter id="tn-glow" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="3" result="b" />

@@ -4,6 +4,7 @@ import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { LangProvider } from "@/components/site/lang";
 import { LeadModal } from "@/components/site/LeadModal";
+import { VisitorTracker } from "@/components/site/VisitorTracker";
 import { Coverage, Faq, FinalCta, Hero, Offers, Proof, Stats, Steps, Usages } from "@/components/site/sections";
 
 const title = "Internet haut débit en Tunisie | Inscription en 30 secondes";
@@ -62,6 +63,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <LangProvider>
+      <VisitorTracker />
       <Header />
       <main>
         <Hero />

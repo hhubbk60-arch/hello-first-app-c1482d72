@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { brand } from "@/lib/i18n";
 import { useLang } from "./lang";
 import logo from "@/assets/ttshop-pro-logo.png";
+import footerBg from "@/assets/footer-bg.jpg";
 import { Phone, Mail, MapPin, Clock, ShieldCheck, ArrowUpRight } from "lucide-react";
 
 export function Footer() {

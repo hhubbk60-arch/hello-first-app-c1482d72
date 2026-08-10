@@ -510,7 +510,7 @@ export function Coverage() {
               </div>
             </div>
             <div className="flex justify-center">
-              <TunisiaMap className="h-[360px] w-auto sm:h-[440px]" />
+              <TunisiaMap className="h-[400px] w-auto sm:h-[480px]" />
             </div>
           </div>
         </Reveal>

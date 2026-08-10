@@ -85,12 +85,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:site_name", content: "TTshop Pro" },
+      { property: "og:locale", content: "fr_TN" },
+      { name: "robots", content: "index, follow, max-image-preview:large" },
+      { name: "theme-color", content: "#0B357E" },
       { property: "og:title", content: "Internet haut débit en Tunisie | Testez votre éligibilité" },
       { name: "twitter:title", content: "Internet haut débit en Tunisie | Testez votre éligibilité" },
       { property: "og:description", content: "Découvrez les offres internet disponibles à votre adresse et laissez notre équipe vous conseiller." },
       { name: "twitter:description", content: "Découvrez les offres internet disponibles à votre adresse et laissez notre équipe vous conseiller." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9eb8b7de-dcb5-4297-bece-2df344c90d96/id-preview-a4a2acb6--358edcf7-48f5-493d-94e2-b03df6192d20.lovable.app-1786352035646.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9eb8b7de-dcb5-4297-bece-2df344c90d96/id-preview-a4a2acb6--358edcf7-48f5-493d-94e2-b03df6192d20.lovable.app-1786352035646.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -104,8 +106,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
     ],
-
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "TTshop Pro",
+          url: "https://project--48938213-6008-458c-8575-0794dfa685bb.lovable.app/",
+          logo: "https://project--48938213-6008-458c-8575-0794dfa685bb.lovable.app/apple-touch-icon.png",
+          email: "contact@ttshop.tn",
+          telephone: "+216 71 000 000",
+          areaServed: "TN",
+        }),
+      },
+    ],
   }),
 
   shellComponent: RootShell,

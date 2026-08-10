@@ -526,32 +526,32 @@ export function Coverage() {
 export function Steps() {
   const { t } = useLang();
   return (
-    <Section id="etapes" tone="ink">
+    <Section id="etapes" tone="default">
       <div className={SHELL}>
         <Reveal>
-          <SectionHeader eyebrow={t.steps.eyebrow} title={t.steps.title} invert align="center" />
+          <SectionHeader eyebrow={t.steps.eyebrow} title={t.steps.title} align="center" />
         </Reveal>
         <Reveal className="mt-10">
-          <ol className="relative grid gap-px overflow-hidden rounded-[18px] border border-white/12 bg-white/10 md:grid-cols-3">
+          <ol className="relative grid gap-px overflow-hidden rounded-[18px] border border-border bg-muted md:grid-cols-3">
             {t.steps.items.map((s, i) => (
               <li
                 key={s.title}
-                className="group relative flex flex-col bg-[oklch(0.22_0.06_280)] p-7 transition-colors duration-300 hover:bg-[oklch(0.26_0.08_280)] md:p-8"
+                className="group relative flex flex-col bg-card p-7 transition-colors duration-300 hover:bg-muted/80 md:p-8"
               >
                 <div className="flex items-baseline justify-between gap-4">
-                  <span className="font-semibold tabular-nums text-[34px] leading-none text-white/25 transition-colors duration-300 group-hover:text-white/60">
+                  <span className="font-semibold tabular-nums text-[34px] leading-none text-muted-foreground/25 transition-colors duration-300 group-hover:text-muted-foreground/60">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="rounded-full border border-white/15 px-3 py-1 text-[12px] font-medium uppercase tracking-[0.08em] text-white/70">
+                  <span className="rounded-full border border-border px-3 py-1 text-[12px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
                     {s.meta}
                   </span>
                 </div>
                 <span
                   aria-hidden
-                  className="mt-5 block h-px w-10 bg-white/25 transition-all duration-300 group-hover:w-16 group-hover:bg-white/60"
+                  className="mt-5 block h-px w-10 bg-border transition-all duration-300 group-hover:w-16 group-hover:bg-muted-foreground/60"
                 />
-                <h3 className="mt-5 text-[19px] font-semibold text-white">{s.title}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-white/65">{s.text}</p>
+                <h3 className="mt-5 text-[19px] font-semibold text-foreground">{s.title}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{s.text}</p>
               </li>
             ))}
           </ol>

@@ -477,7 +477,7 @@ export function Usages() {
 export function Coverage() {
   const { t } = useLang();
   return (
-    <section id="couverture" className="relative isolate overflow-hidden bg-ink py-14 md:py-20">
+    <section id="couverture" className="relative isolate overflow-hidden bg-ink py-10 md:py-14">
       <img
         src={coverageBg}
         alt="Vue de la Tunisie et de sa côte méditerranéenne"
@@ -489,7 +489,7 @@ export function Coverage() {
       <div className="absolute inset-0 -z-10 bg-ink/70" />
       <div className={`${SHELL} relative`}>
         <Reveal>
-          <div className="grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-center lg:gap-12">
+          <div className="grid gap-6 lg:grid-cols-[1fr_0.8fr] lg:items-center lg:gap-10">
             <div>
               <SectionHeader
                 eyebrow={t.coverage.eyebrow}

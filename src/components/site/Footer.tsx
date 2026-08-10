@@ -22,7 +22,16 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-brand-gradient text-primary-foreground">
+    <footer className="relative isolate overflow-hidden text-primary-foreground">
+      <img
+        src={footerBg}
+        alt=""
+        width={1920}
+        height={800}
+        loading="lazy"
+        className="absolute inset-0 -z-20 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 -z-10 bg-brand-gradient opacity-90" aria-hidden="true" />
       {/* CTA band */}
       <div className="border-b border-primary-foreground/12">
         <div className="mx-auto flex max-w-[1200px] flex-col gap-5 px-5 py-10 sm:px-8 md:flex-row md:items-center md:justify-between">

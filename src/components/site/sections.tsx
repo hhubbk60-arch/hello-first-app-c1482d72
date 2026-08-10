@@ -621,24 +621,27 @@ export function Proof() {
             >
               {Array.from({ length: pages }).map((_, p) => (
                 <div key={p} className="grid w-full shrink-0 gap-5 px-0.5 md:grid-cols-3">
-                  {items.slice(p * perView, p * perView + perView).map((r) => (
-                    <figure
-                      key={r.name}
-                      className="rounded-[14px] border border-white/35 bg-card/95 p-6 shadow-[0_24px_55px_-34px_rgba(0,0,0,0.75)] backdrop-blur-sm"
-                    >
-                      <Stars />
-                      <blockquote className="mt-4 text-[16px] leading-relaxed text-ink-soft">“{r.quote}”</blockquote>
-                      <figcaption className="mt-4 flex items-center gap-3 text-[14px] text-muted-foreground">
-                        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-secondary text-[13px] font-semibold text-brand">
-                          {r.name.slice(0, 1)}
-                        </span>
-                        <span>
-                          <span className="block font-semibold text-ink">{r.name}</span>
-                          {r.city}
-                        </span>
-                      </figcaption>
-                    </figure>
-                  ))}
+                  {Array.from({ length: perView }).map((_, i) => {
+                    const r = items[(p * perView + i) % items.length];
+                    return (
+                      <figure
+                        key={`${p}-${r.name}`}
+                        className="rounded-[14px] border border-white/35 bg-card/95 p-6 shadow-[0_24px_55px_-34px_rgba(0,0,0,0.75)] backdrop-blur-sm"
+                      >
+                        <Stars />
+                        <blockquote className="mt-4 text-[16px] leading-relaxed text-ink-soft">“{r.quote}”</blockquote>
+                        <figcaption className="mt-4 flex items-center gap-3 text-[14px] text-muted-foreground">
+                          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-secondary text-[13px] font-semibold text-brand">
+                            {r.name.slice(0, 1)}
+                          </span>
+                          <span>
+                            <span className="block font-semibold text-ink">{r.name}</span>
+                            {r.city}
+                          </span>
+                        </figcaption>
+                      </figure>
+                    );
+                  })}
                 </div>
               ))}
             </div>

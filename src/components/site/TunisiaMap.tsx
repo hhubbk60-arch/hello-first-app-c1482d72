@@ -76,12 +76,14 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
     const bow = len * 0.28 * (i % 2 === 0 ? 1 : -1);
     const qx = mx + (-dy / len) * bow;
     const qy = my + (dx / len) * bow;
+    const colour = ROUTE_COLOURS[i % ROUTE_COLOURS.length];
     return {
       id: `${a}-${b}`,
       d: `M ${A.cx} ${A.cy} Q ${qx} ${qy} ${B.cx} ${B.cy}`,
       from: A,
       to: B,
       delay: i * 0.75,
+      colour,
     };
   }).filter(Boolean) as Array<{
     id: string;
@@ -89,6 +91,7 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
     from: { cx: number; cy: number };
     to: { cx: number; cy: number };
     delay: number;
+    colour: string;
   }>;
 
   return (

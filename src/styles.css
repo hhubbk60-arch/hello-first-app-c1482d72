@@ -188,3 +188,68 @@
     animation: none;
   }
 }
+
+/* Success celebration */
+@keyframes confetti-fly {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg) scale(0.4);
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--cx), calc(var(--cy) + 90px)) rotate(var(--cr)) scale(1);
+  }
+}
+
+.confetti-bit {
+  animation: confetti-fly 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes success-pop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  55% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@utility animate-success-pop {
+  animation: success-pop 620ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes success-ring {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@utility animate-success-ring {
+  animation: success-ring 1.4s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confetti-bit,
+  .animate-success-pop,
+  .animate-success-ring {
+    animation: none;
+  }
+
+  .confetti-bit {
+    display: none;
+  }
+}

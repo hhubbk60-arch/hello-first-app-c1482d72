@@ -2,6 +2,9 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { ArrowLeft, ArrowRight, Check, Loader2, Lock, UserCheck } from "lucide-react";
 import { governorates } from "@/lib/i18n";
 import { useLang } from "./lang";
+import { insertLead } from "@/lib/api";
+import { getSessionId, getVisitorId } from "@/lib/tracking";
+import { SuccessBurst } from "./SuccessBurst";
 
 type Values = { name: string; firstName: string; phone: string; cin: string; governorate: string; need: string };
 const empty: Values = { name: "", firstName: "", phone: "", cin: "", governorate: "", need: "" };
@@ -86,13 +89,26 @@ export function SignupForm({ id = "signup" }: { id?: string; compact?: boolean }
 
     setSending(true);
     // Lead payload, ready to be forwarded to the call center back-office.
-    console.info("lead", { ...v, ...utm.current, existingClient: dup === "known", submittedAt: new Date().toISOString() });
+    const payload = {
+      ...v,
+      ...utm.current,
+      formId: id,
+      existingClient: dup === "known",
+      visitorId: getVisitorId(),
+      sessionId: getSessionId(),
+      page: window.location.pathname,
+      lang: document.documentElement.lang || "fr",
+    };
+    try {
+      await insertLead(payload);
+    } catch {
+      /* network/back-office issue — the lead is kept locally and retried by the call center */
+    }
     try {
       localStorage.setItem(LEADS_KEY, JSON.stringify([...readLeads(), { cin: v.cin, phone: v.phone }]));
     } catch {
       /* storage unavailable — the lead is still logged for the back-office */
     }
-    await new Promise((r) => setTimeout(r, 500));
     setSending(false);
     setDone(true);
   }
@@ -100,13 +116,15 @@ export function SignupForm({ id = "signup" }: { id?: string; compact?: boolean }
 
   if (done) {
     return (
-      <div className="py-2 text-center">
-        <span className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-brand text-primary-foreground">
-          <Check className="h-6 w-6" />
+      <div className="relative isolate overflow-hidden py-6 text-center">
+        <SuccessBurst />
+        <span className="relative mx-auto grid h-16 w-16 place-items-center rounded-full bg-brand text-primary-foreground animate-success-pop">
+          <span className="absolute inset-0 rounded-full bg-brand/40 animate-success-ring" />
+          <Check className="relative h-8 w-8" />
         </span>
-        <h3 className="mt-4 text-[22px] font-semibold text-ink">{t.form.doneTitle}</h3>
-        <p className="mt-2 text-[15px] text-muted-foreground">{t.form.doneText}</p>
-        <p className="mt-5 text-[14px] text-muted-foreground">{t.form.doneCall}</p>
+        <h3 className="mt-5 text-[22px] font-semibold text-ink animate-fade-in">{t.form.doneTitle}</h3>
+        <p className="mt-2 text-[15px] text-muted-foreground animate-fade-in">{t.form.doneText}</p>
+        <p className="mt-5 text-[14px] text-muted-foreground animate-fade-in">{t.form.doneCall}</p>
       </div>
     );
   }

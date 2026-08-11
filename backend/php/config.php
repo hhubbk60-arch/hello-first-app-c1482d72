@@ -155,8 +155,8 @@ function geo_lookup(?string $ip): array {
     if (!$ip || filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false) {
         return $out;
     }
-    $ctx = stream_context_create(['http' => ['timeout' => 2, 'ignore_errors' => true]]);
-    $raw = @file_get_contents("http://ip-api.com/json/{$ip}?fields=status,country,countryCode,regionName,city,lat,lon,isp", false, $ctx);
+    $url = "http://ip-api.com/json/{$ip}?fields=status,country,countryCode,regionName,city,lat,lon,isp";
+    $raw = http_get($url);
     if ($raw) {
         $j = json_decode($raw, true);
         if (is_array($j) && ($j['status'] ?? '') === 'success') {
@@ -170,6 +170,27 @@ function geo_lookup(?string $ip): array {
         }
     }
     return $out;
+}
+
+/** Petit GET HTTP tolérant : cURL si dispo, sinon file_get_contents. */
+function http_get(string $url, int $timeout = 2): ?string {
+    if (function_exists('curl_init')) {
+        $ch = curl_init($url);
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT        => $timeout,
+            CURLOPT_CONNECTTIMEOUT => $timeout,
+            CURLOPT_FOLLOWLOCATION => true,
+        ]);
+        $res = curl_exec($ch);
+        curl_close($ch);
+        if (is_string($res) && $res !== '') return $res;
+        return null;
+    }
+    if (!ini_get('allow_url_fopen')) return null;
+    $ctx = stream_context_create(['http' => ['timeout' => $timeout, 'ignore_errors' => true]]);
+    $res = @file_get_contents($url, false, $ctx);
+    return is_string($res) && $res !== '' ? $res : null;
 }
 
 /** Very small UA parser — enough for reporting. */

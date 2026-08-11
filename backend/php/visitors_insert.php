@@ -19,14 +19,20 @@ $scroll    = min(100, max(0, (int)($in['scrollDepth'] ?? 0)));
 $pdo = db();
 
 // Ligne existante pour ce visiteur / session / page ?
+// NB: chaque placeholder n'est utilisé qu'une seule fois (PDO sans émulation).
 $find = $pdo->prepare(
     'SELECT visitors_id FROM visitors
       WHERE visitors_visitor_id = :v
-        AND (:s IS NULL OR visitors_session_id = :s)
+        AND (:s1 IS NULL OR visitors_session_id = :s2)
         AND visitors_page = :p
       ORDER BY visitors_id DESC LIMIT 1'
 );
-$find->execute([':v' => $visitorId, ':s' => $sessionId, ':p' => $page]);
+$find->execute([
+    ':v'  => $visitorId,
+    ':s1' => $sessionId,
+    ':s2' => $sessionId,
+    ':p'  => $page,
+]);
 $existingId = $find->fetchColumn();
 
 if ($existingId) {

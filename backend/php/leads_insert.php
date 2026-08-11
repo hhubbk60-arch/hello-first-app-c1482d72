@@ -63,10 +63,15 @@ $row = [
 $pdo = db();
 
 // Doublon éventuel (même CIN ou même téléphone) — on enregistre quand même.
+// NB: chaque placeholder n'est utilisé qu'une seule fois (PDO sans émulation).
 $dupStmt = $pdo->prepare(
-    'SELECT leads_id FROM leads WHERE leads_phone = :p OR (:c IS NOT NULL AND leads_cin = :c) LIMIT 1'
+    'SELECT leads_id FROM leads WHERE leads_phone = :p OR (:c1 IS NOT NULL AND leads_cin = :c2) LIMIT 1'
 );
-$dupStmt->execute([':p' => $row['leads_phone'], ':c' => $row['leads_cin']]);
+$dupStmt->execute([
+    ':p'  => $row['leads_phone'],
+    ':c1' => $row['leads_cin'],
+    ':c2' => $row['leads_cin'],
+]);
 $duplicate = (bool)$dupStmt->fetchColumn();
 
 $cols = array_keys($row);

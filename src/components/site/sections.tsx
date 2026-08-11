@@ -10,9 +10,11 @@ import { brand, governorates } from "@/lib/i18n";
 import heroD1 from "@/assets/hero-d1.jpg";
 import heroD2 from "@/assets/hero-d2.jpg";
 import heroD3 from "@/assets/hero-d3.jpg";
+import heroD4 from "@/assets/hero-d4.jpg";
 import heroM1 from "@/assets/hero-m1.jpg";
 import heroM2 from "@/assets/hero-m2.jpg";
 import heroM3 from "@/assets/hero-m3.jpg";
+import heroM4 from "@/assets/hero-m4.jpg";
 import ctaBg from "@/assets/cta-bg.jpg";
 import useWork from "@/assets/use-work.jpg";
 import useGaming from "@/assets/use-gaming.jpg";
@@ -131,6 +133,7 @@ const SLIDES = [
   { desktop: heroD1, mobile: heroM1 },
   { desktop: heroD2, mobile: heroM2 },
   { desktop: heroD3, mobile: heroM3 },
+  { desktop: heroD4, mobile: heroM4 },
 ];
 
 function useSlideshow(count: number, delay = 5000) {

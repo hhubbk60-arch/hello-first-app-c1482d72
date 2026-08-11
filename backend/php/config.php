@@ -40,7 +40,6 @@ register_shutdown_function(function () {
 // ---------- CORS ------------------------------------------------------
 // Wildcard origin (no cookies/credentials are used anywhere), echoing back the
 // exact headers the browser asks for so no preflight can ever fail.
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '*';
 header("Access-Control-Allow-Origin: *");
 header("Vary: Origin, Access-Control-Request-Headers, Access-Control-Request-Method");
 header("Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS");

@@ -38,11 +38,15 @@ register_shutdown_function(function () {
 });
 
 // ---------- CORS ------------------------------------------------------
+// Wildcard origin (no cookies/credentials are used anywhere), echoing back the
+// exact headers the browser asks for so no preflight can ever fail.
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Vary: Origin, Access-Control-Request-Headers, Access-Control-Request-Method");
+header("Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS");
 $reqHeaders = $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']
-    ?? 'Content-Type, Authorization, X-Requested-With, X-Auth-Token, X-Request-ID, Cache-Control, Pragma';
+    ?? 'Content-Type, Authorization, X-Requested-With, X-Auth-Token, X-Access-Key, X-Request-ID, Accept, Origin, Cache-Control, Pragma';
 header("Access-Control-Allow-Headers: $reqHeaders");
+header("Access-Control-Expose-Headers: Content-Type, Content-Length");
 header("Access-Control-Max-Age: 86400");
 header("Content-Type: application/json; charset=UTF-8");
 header("Cache-Control: no-store, no-cache, must-revalidate");

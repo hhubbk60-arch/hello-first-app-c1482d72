@@ -1,0 +1,21 @@
+# =====================================================================
+# CORS fallback — guarantees the headers exist even when PHP never runs
+# (404, 403, 500, fatal error, or an OPTIONS preflight blocked upstream).
+# Upload this file next to the .php endpoints.
+# =====================================================================
+
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With, X-Auth-Token, X-Access-Key, X-Request-ID, Accept, Origin, Cache-Control, Pragma"
+    Header always set Access-Control-Expose-Headers "Content-Type, Content-Length"
+    Header always set Access-Control-Max-Age "86400"
+    Header always append Vary "Origin"
+</IfModule>
+
+# Answer preflight immediately with 204, without executing PHP.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_METHOD} ^OPTIONS$
+    RewriteRule ^(.*)$ $1 [R=204,L]
+</IfModule>

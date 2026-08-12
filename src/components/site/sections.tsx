@@ -168,6 +168,8 @@ export function Hero() {
               width={1008}
               height={1600}
               loading={i === 0 ? "eager" : "lazy"}
+              decoding={i === 0 ? "sync" : "async"}
+              fetchPriority={i === 0 ? "high" : "low"}
               className="h-full w-full object-cover object-center md:hidden"
             />
             <img
@@ -176,6 +178,8 @@ export function Hero() {
               width={1920}
               height={1088}
               loading={i === 0 ? "eager" : "lazy"}
+              decoding={i === 0 ? "sync" : "async"}
+              fetchPriority={i === 0 ? "high" : "low"}
               className="hidden h-full w-full object-cover object-center md:block"
             />
           </div>

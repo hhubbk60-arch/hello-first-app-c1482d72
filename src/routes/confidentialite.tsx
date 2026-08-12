@@ -18,6 +18,7 @@ export const Route = createFileRoute("/confidentialite")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "article" },
+      { property: "og:url", content: "/confidentialite" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/confidentialite" }],

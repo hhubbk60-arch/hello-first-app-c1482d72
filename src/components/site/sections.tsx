@@ -265,12 +265,15 @@ const STAT_VALUES = [
 function Stat({ value, suffix, label }: { value: number; suffix: string; label: string }) {
   const { ref, formatted } = useCounter(value, Number.isInteger(value) ? 0 : 1);
   return (
-    <div>
-      <p className="text-[26px] font-semibold leading-none tracking-[-0.03em] text-brand sm:text-[34px] md:text-[42px]" dir="ltr">
+    <div className="flex flex-col items-center justify-center gap-1 sm:block">
+      <p
+        className="text-[22px] font-semibold leading-none tracking-[-0.03em] text-brand sm:text-[34px] md:text-[42px]"
+        dir="ltr"
+      >
         <span ref={ref}>{formatted}</span>
         {suffix}
       </p>
-      <p className="mt-2 text-[13px] text-muted-foreground sm:text-[15px]">{label}</p>
+      <p className="text-[11px] leading-tight text-muted-foreground sm:mt-2 sm:text-[15px]">{label}</p>
     </div>
   );
 }
@@ -278,8 +281,8 @@ function Stat({ value, suffix, label }: { value: number; suffix: string; label: 
 export function Stats() {
   const { t } = useLang();
   return (
-    <section className="border-b border-border bg-background py-10">
-      <div className={`${SHELL} grid grid-cols-3 gap-6 text-center sm:gap-10`}>
+    <section className="border-b border-border bg-background py-6 sm:py-10">
+      <div className={`${SHELL} grid grid-cols-3 gap-3 text-center sm:gap-10`}>
         {STAT_VALUES.map((s, i) => (
           <Stat key={i} {...s} label={t.stats[i]?.label ?? ""} />
         ))}

@@ -166,10 +166,10 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
 
               {/* Sender + receiver pulses */}
               {[a.from, a.to].map((p, k) => (
-                <circle key={k} cx={p.cx} cy={p.cy} fill="none" stroke={a.colour} strokeWidth={2}>
+                <circle key={k} cx={p.cx} cy={p.cy} fill="none" stroke={a.colour} strokeWidth={2.5}>
                   <animate
                     attributeName="r"
-                    values="2;2;18"
+                    values="2;2;24"
                     keyTimes="0;0.7;1"
                     dur="5s"
                     begin={`${a.delay + (k === 0 ? 0 : 4.4)}s`}
@@ -177,7 +177,7 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
                   />
                   <animate
                     attributeName="opacity"
-                    values="0;0.7;0"
+                    values="0;0.85;0"
                     keyTimes="0;0.7;1"
                     dur="5s"
                     begin={`${a.delay + (k === 0 ? 0 : 4.4)}s`}

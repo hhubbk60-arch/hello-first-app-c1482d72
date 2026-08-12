@@ -8,10 +8,9 @@ const PALETTE = [
   "color-mix(in oklab, var(--brand) 66%, white)",
 ];
 
-/* Message route colours: alternating green / red pulses. */
-const ROUTE_GREEN = "oklch(0.65 0.22 145)";
+/* Message route colour: bold red pulses for maximum visibility. */
 const ROUTE_RED = "oklch(0.62 0.22 25)";
-const ROUTE_COLOURS = [ROUTE_GREEN, ROUTE_RED];
+const ROUTE_COLOURS = [ROUTE_RED];
 
 /* Manual colour index so neighbours never share a colour. */
 const COLOR_BY_NAME: Record<string, number> = {
@@ -102,18 +101,13 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
       className={className}
     >
       <defs>
-        <linearGradient id="tn-arc-green" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor={ROUTE_GREEN} stopOpacity="0" />
-          <stop offset="50%" stopColor={ROUTE_GREEN} stopOpacity="0.95" />
-          <stop offset="100%" stopColor={ROUTE_GREEN} stopOpacity="0" />
-        </linearGradient>
         <linearGradient id="tn-arc-red" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor={ROUTE_RED} stopOpacity="0" />
           <stop offset="50%" stopColor={ROUTE_RED} stopOpacity="0.95" />
           <stop offset="100%" stopColor={ROUTE_RED} stopOpacity="0" />
         </linearGradient>
         <filter id="tn-glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="3" result="b" />
+          <feGaussianBlur stdDeviation="4" result="b" />
           <feMerge>
             <feMergeNode in="b" />
             <feMergeNode in="SourceGraphic" />
@@ -136,17 +130,17 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
       {/* Message routes: drawing arcs + travelling packets */}
       <g className="pointer-events-none motion-reduce:hidden" filter="url(#tn-glow)">
         {arcs.map((a) => {
-          const gradientId = a.colour === ROUTE_GREEN ? "url(#tn-arc-green)" : "url(#tn-arc-red)";
+          const gradientId = "url(#tn-arc-red)";
           return (
             <g key={a.id}>
               <path
                 d={a.d}
                 fill="none"
                 stroke={gradientId}
-                strokeWidth={2.4}
+                strokeWidth={3.2}
                 strokeLinecap="round"
                 strokeDasharray="220 900"
-                opacity={0.9}
+                opacity={1}
               >
                 <animate
                   attributeName="stroke-dashoffset"
@@ -158,10 +152,10 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
                 />
               </path>
 
-              <circle r={5} fill={a.colour}>
+              <circle r={7} fill={a.colour}>
                 <animate
                   attributeName="r"
-                  values="0;5;5;0"
+                  values="0;7;7;0"
                   keyTimes="0;0.08;0.92;1"
                   dur="5s"
                   begin={`${a.delay}s`}
@@ -172,10 +166,10 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
 
               {/* Sender + receiver pulses */}
               {[a.from, a.to].map((p, k) => (
-                <circle key={k} cx={p.cx} cy={p.cy} fill="none" stroke={a.colour} strokeWidth={2}>
+                <circle key={k} cx={p.cx} cy={p.cy} fill="none" stroke={a.colour} strokeWidth={2.5}>
                   <animate
                     attributeName="r"
-                    values="2;2;18"
+                    values="2;2;24"
                     keyTimes="0;0.7;1"
                     dur="5s"
                     begin={`${a.delay + (k === 0 ? 0 : 4.4)}s`}
@@ -183,7 +177,7 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
                   />
                   <animate
                     attributeName="opacity"
-                    values="0;0.7;0"
+                    values="0;0.85;0"
                     keyTimes="0;0.7;1"
                     dur="5s"
                     begin={`${a.delay + (k === 0 ? 0 : 4.4)}s`}

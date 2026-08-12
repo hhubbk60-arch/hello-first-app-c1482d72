@@ -130,17 +130,17 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
       {/* Message routes: drawing arcs + travelling packets */}
       <g className="pointer-events-none motion-reduce:hidden" filter="url(#tn-glow)">
         {arcs.map((a) => {
-          const gradientId = a.colour === ROUTE_GREEN ? "url(#tn-arc-green)" : "url(#tn-arc-red)";
+          const gradientId = "url(#tn-arc-red)";
           return (
             <g key={a.id}>
               <path
                 d={a.d}
                 fill="none"
                 stroke={gradientId}
-                strokeWidth={2.4}
+                strokeWidth={3.2}
                 strokeLinecap="round"
                 strokeDasharray="220 900"
-                opacity={0.9}
+                opacity={1}
               >
                 <animate
                   attributeName="stroke-dashoffset"
@@ -152,10 +152,10 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
                 />
               </path>
 
-              <circle r={5} fill={a.colour}>
+              <circle r={7} fill={a.colour}>
                 <animate
                   attributeName="r"
-                  values="0;5;5;0"
+                  values="0;7;7;0"
                   keyTimes="0;0.08;0.92;1"
                   dur="5s"
                   begin={`${a.delay}s`}

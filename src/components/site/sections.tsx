@@ -266,11 +266,11 @@ function Stat({ value, suffix, label }: { value: number; suffix: string; label: 
   const { ref, formatted } = useCounter(value, Number.isInteger(value) ? 0 : 1);
   return (
     <div>
-      <p className="text-[34px] font-semibold leading-none tracking-[-0.03em] text-brand sm:text-[42px]" dir="ltr">
+      <p className="text-[26px] font-semibold leading-none tracking-[-0.03em] text-brand sm:text-[34px] md:text-[42px]" dir="ltr">
         <span ref={ref}>{formatted}</span>
         {suffix}
       </p>
-      <p className="mt-2 text-[15px] text-muted-foreground">{label}</p>
+      <p className="mt-2 text-[13px] text-muted-foreground sm:text-[15px]">{label}</p>
     </div>
   );
 }

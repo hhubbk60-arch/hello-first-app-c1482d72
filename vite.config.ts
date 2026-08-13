@@ -13,8 +13,9 @@ const isStatic = process.env["STATIC_BUILD"] === "1";
 export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
-    server: { entry: "server" },
+    // nitro/vite builds from this. The static build uses the default entry so the
+    // prerenderer can boot the server bundle it expects.
+    ...(isStatic ? {} : { server: { entry: "server" } }),
     ...(isStatic
       ? {
           prerender: { enabled: true, crawlLinks: true },

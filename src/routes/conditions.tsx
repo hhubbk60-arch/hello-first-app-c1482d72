@@ -18,10 +18,10 @@ export const Route = createFileRoute("/conditions")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "article" },
-      { property: "og:url", content: "/conditions" },
+      { property: "og:url", content: "https://ttshop.pro/conditions" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/conditions" }],
+    links: [{ rel: "canonical", href: "https://ttshop.pro/conditions" }],
   }),
   component: TermsRoute,
 });

@@ -10,7 +10,7 @@ import { Coverage, Faq, FinalCta, Hero, Offers, Proof, Stats, Steps, Usages } fr
 const title = "Internet haut débit en Tunisie | Inscription en 30 secondes";
 const description =
   "Inscrivez-vous en 30 secondes et un conseiller vous rappelle avec la meilleure offre internet pour votre foyer, partout en Tunisie.";
-const siteUrl = "https://project--48938213-6008-458c-8575-0794dfa685bb.lovable.app";
+const siteUrl = "https://ttshop.pro";
 const ogImage = `${siteUrl}/og-image.jpg`;
 
 export const Route = createFileRoute("/")({
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:description", content: description },
       { name: "twitter:image", content: ogImage },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: `${siteUrl}/` }],
     scripts: [
       {
         type: "application/ld+json",

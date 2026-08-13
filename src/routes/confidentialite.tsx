@@ -18,10 +18,10 @@ export const Route = createFileRoute("/confidentialite")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "article" },
-      { property: "og:url", content: "/confidentialite" },
+      { property: "og:url", content: "https://ttshop.pro/confidentialite" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "/confidentialite" }],
+    links: [{ rel: "canonical", href: "https://ttshop.pro/confidentialite" }],
   }),
   component: PrivacyRoute,
 });

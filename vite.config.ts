@@ -6,10 +6,28 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+// `bun run build:static` sets STATIC_BUILD=1 to produce a plain static site
+// (HTML + assets) you can upload to any classic web host.
+const isStatic = process.env["STATIC_BUILD"] === "1";
+
 export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
-    server: { entry: "server" },
+    // nitro/vite builds from this. The static build uses the default entry so the
+    // prerenderer can boot the server bundle it expects.
+    ...(isStatic ? {} : { server: { entry: "server" } }),
+    ...(isStatic
+      ? {
+          prerender: { enabled: true, crawlLinks: true },
+          pages: [
+            { path: "/", prerender: { enabled: true } },
+            { path: "/conditions", prerender: { enabled: true } },
+            { path: "/confidentialite", prerender: { enabled: true } },
+            { path: "/leads", prerender: { enabled: true } },
+            { path: "/visitors", prerender: { enabled: true } },
+          ],
+        }
+      : {}),
   },
+  ...(isStatic ? { nitro: false as const } : {}),
 });

@@ -3,7 +3,7 @@
 import { cp, rm, mkdir, readFile, writeFile, access } from "node:fs/promises";
 import { resolve } from "node:path";
 import { tmpdir } from "node:os";
-import { build } from "vite";
+import { spawnSync } from "node:child_process";
 
 const root = resolve(import.meta.dirname, "..");
 const src = resolve(root, "dist/client");
@@ -12,8 +12,13 @@ const staging = resolve(tmpdir(), `static-build-${Date.now()}`);
 
 // Run the Vite static build here (works on Windows, macOS and Linux —
 // no shell-specific env-var syntax needed).
-process.env["STATIC_BUILD"] = "1";
-await build({ root });
+const viteBin = resolve(root, "node_modules/vite/bin/vite.js");
+const result = spawnSync(process.execPath, [viteBin, "build"], {
+  cwd: root,
+  stdio: "inherit",
+  env: { ...process.env, STATIC_BUILD: "1" },
+});
+if (result.status !== 0) process.exit(result.status ?? 1);
 
 await access(src).catch(() => {
   console.error("dist/client not found — the static build did not produce output.");

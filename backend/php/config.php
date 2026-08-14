@@ -1,7 +1,7 @@
 <?php
 // =====================================================================
 // TTshop Pro — Landing backend bootstrap (CORS + DB + helpers)
-// Deploy to: https://erp.ttshop.pro/code_source/backend/php/
+// Deploy to: https://ttshop.pro/backend/
 // Every endpoint in this folder includes this file first.
 // =====================================================================
 

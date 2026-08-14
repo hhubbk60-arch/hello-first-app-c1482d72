@@ -1,5 +1,5 @@
 <?php
-// POST https://erp.ttshop.pro/code_source/backend/php/visitors_insert.php
+// POST https://ttshop.pro/backend/visitors_insert.php
 // Body (JSON): { visitorId, sessionId, page, pageTitle, referrer, lang,
 //                screen, timezone, timeOnPage, scrollDepth, utm_* }
 // Appelé une fois à l'arrivée, puis à la sortie (upsert par visitor+session+page).

@@ -1,5 +1,5 @@
 <?php
-// POST https://erp.ttshop.pro/code_source/backend/php/leads_insert.php
+// POST https://ttshop.pro/backend/leads_insert.php
 // Body (JSON): { name, firstName, phone, cin, governorate, need, ... }
 require_once __DIR__ . '/config.php';
 require_method('POST');

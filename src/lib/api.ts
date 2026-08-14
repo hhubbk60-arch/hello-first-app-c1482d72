@@ -1,5 +1,5 @@
 /** Base URL of the PHP back-office APIs. */
-export const API_BASE = "https://erp.ttshop.pro/code_source/backend/php";
+export const API_BASE = "https://ttshop.pro/backend";
 
 async function post<T>(file: string, body: unknown): Promise<T> {
   const res = await fetch(`${API_BASE}/${file}`, {

@@ -107,9 +107,10 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
           <stop offset="100%" stopColor={ROUTE_RED} stopOpacity="0" />
         </linearGradient>
         <filter id="tn-glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="4" result="b" />
+          <feGaussianBlur stdDeviation="6" result="b" />
           <feMerge>
             <feMergeNode in="b" />
+            <feMergeNode in="SourceGraphic" />
             <feMergeNode in="SourceGraphic" />
           </feMerge>
         </filter>
@@ -128,7 +129,7 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
       </g>
 
       {/* Message routes: drawing arcs + travelling packets */}
-      <g className="pointer-events-none motion-reduce:hidden" filter="url(#tn-glow)">
+      <g className="pointer-events-none motion-reduce:hidden">
         {arcs.map((a) => {
           const gradientId = "url(#tn-arc-red)";
           return (
@@ -137,10 +138,11 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
                 d={a.d}
                 fill="none"
                 stroke={gradientId}
-                strokeWidth={3.2}
+                strokeWidth={7}
                 strokeLinecap="round"
                 strokeDasharray="220 900"
                 opacity={1}
+                filter="url(#tn-glow)"
               >
                 <animate
                   attributeName="stroke-dashoffset"
@@ -152,10 +154,10 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
                 />
               </path>
 
-              <circle r={7} fill={a.colour}>
+              <circle r={16} fill={a.colour} stroke="#ffffff" strokeWidth={4}>
                 <animate
                   attributeName="r"
-                  values="0;7;7;0"
+                  values="0;16;16;0"
                   keyTimes="0;0.08;0.92;1"
                   dur="5s"
                   begin={`${a.delay}s`}
@@ -166,10 +168,10 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
 
               {/* Sender + receiver pulses */}
               {[a.from, a.to].map((p, k) => (
-                <circle key={k} cx={p.cx} cy={p.cy} fill="none" stroke={a.colour} strokeWidth={2.5}>
+                <circle key={k} cx={p.cx} cy={p.cy} fill="none" stroke={a.colour} strokeWidth={6}>
                   <animate
                     attributeName="r"
-                    values="2;2;24"
+                    values="4;4;52"
                     keyTimes="0;0.7;1"
                     dur="5s"
                     begin={`${a.delay + (k === 0 ? 0 : 4.4)}s`}
@@ -177,7 +179,7 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
                   />
                   <animate
                     attributeName="opacity"
-                    values="0;0.85;0"
+                    values="0;1;0"
                     keyTimes="0;0.7;1"
                     dur="5s"
                     begin={`${a.delay + (k === 0 ? 0 : 4.4)}s`}

@@ -129,18 +129,20 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
       </g>
 
       {/* Message routes: drawing arcs + travelling packets */}
-      <g className="pointer-events-none motion-reduce:hidden">
+      <g className="pointer-events-none">
         {arcs.map((a) => {
           const gradientId = "url(#tn-arc-red)";
+          const routeId = `tn-route-${a.id.replace(/[^a-zA-Z0-9]/g, "-")}`;
           return (
             <g key={a.id}>
               <path
+                id={routeId}
                 d={a.d}
                 fill="none"
                 stroke={gradientId}
-                strokeWidth={7}
+                strokeWidth={9}
                 strokeLinecap="round"
-                strokeDasharray="220 900"
+                strokeDasharray="180 70"
                 opacity={1}
                 filter="url(#tn-glow)"
               >
@@ -154,16 +156,18 @@ export function TunisiaMap({ className = "" }: { className?: string }) {
                 />
               </path>
 
-              <circle r={16} fill={a.colour} stroke="#ffffff" strokeWidth={4}>
+              <circle r={18} fill={a.colour} stroke="#ffffff" strokeWidth={5}>
                 <animate
                   attributeName="r"
-                  values="0;16;16;0"
+                  values="12;18;18;12"
                   keyTimes="0;0.08;0.92;1"
                   dur="5s"
                   begin={`${a.delay}s`}
                   repeatCount="indefinite"
                 />
-                <animateMotion dur="5s" begin={`${a.delay}s`} repeatCount="indefinite" path={a.d} />
+                <animateMotion dur="5s" begin={`${a.delay}s`} repeatCount="indefinite" rotate="auto">
+                  <mpath href={`#${routeId}`} />
+                </animateMotion>
               </circle>
 
               {/* Sender + receiver pulses */}

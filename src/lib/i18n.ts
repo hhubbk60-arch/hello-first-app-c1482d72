@@ -337,11 +337,32 @@ const ar: Dict = {
     eyebrow: "العروض",
     title: "أي صبيب يناسبك؟",
     items: [
-      { name: "الأساسي", who: "شخص إلى شخصين", speed: "20–50 Mbps" },
-      { name: "العائلي", who: "3 إلى 5 أشخاص", speed: "50–100 Mbps" },
+      { name: "الأساسي", who: "شخص إلى شخصين", speed: "10–20 Mbps" },
+      { name: "العائلي", who: "3 إلى 5 أشخاص", speed: "20–100 Mbps" },
       { name: "المحترف والألعاب", who: "استعمال مكثف", speed: "100 Mbps +" },
     ],
     link: "أريد هذا العرض",
+    families: {
+      title: "عائلتان من عروض الصبيب العالي",
+      sub: "اختاروا التقنية ثم الصبيب المناسب لمنزلكم.",
+      more: "مزيد من المعلومات",
+      items: [
+        {
+          name: "Fibre Premium",
+          tag: "الألياف البصرية",
+          text: "الألياف البصرية إلى المنزل لصبيب عالٍ جدًا ومستقر، مثالي للاستعمال المكثف.",
+          points: ["صبيب عالٍ جدًا", "زمن استجابة منخفض", "تركيب في المنزل"],
+          href: "https://www.topnet.tn/offres/detail/haut-debit/fibre-premium",
+        },
+        {
+          name: "Smart Rapido",
+          tag: "ADSL / VDSL",
+          text: "صبيب عالٍ عبر الخط الهاتفي، متوفر على نطاق واسع وسريع التفعيل.",
+          points: ["متوفر في كل مكان", "تفعيل سريع", "جودة بسعر مناسب"],
+          href: "https://www.topnet.tn/offres/detail/haut-debit/smart-rapido",
+        },
+      ],
+    },
   },
   usages: {
     eyebrow: "الاستعمالات",

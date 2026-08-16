@@ -77,7 +77,18 @@ type Dict = {
   };
   needs: string[];
   stats: { label: string }[];
-  offers: { eyebrow: string; title: string; items: { name: string; who: string; speed: string }[]; link: string };
+  offers: {
+    eyebrow: string;
+    title: string;
+    items: { name: string; who: string; speed: string }[];
+    link: string;
+    families: {
+      title: string;
+      sub: string;
+      more: string;
+      items: { name: string; tag: string; text: string; points: string[]; href: string }[];
+    };
+  };
   usages: {
     eyebrow: string;
     title: string;
@@ -149,11 +160,32 @@ const fr: Dict = {
     eyebrow: "Offres",
     title: "Quel débit vous faut-il ?",
     items: [
-      { name: "Essentiel", who: "1 à 2 personnes", speed: "20–50 Mbps" },
-      { name: "Famille", who: "3 à 5 personnes", speed: "50–100 Mbps" },
+      { name: "Essentiel", who: "1 à 2 personnes", speed: "10–20 Mbps" },
+      { name: "Famille", who: "3 à 5 personnes", speed: "20–100 Mbps" },
       { name: "Pro & Gaming", who: "Usages intensifs", speed: "100 Mbps +" },
     ],
     link: "Je veux cette offre",
+    families: {
+      title: "Deux familles d'offres haut débit",
+      sub: "Choisissez la technologie, puis le débit qui correspond à votre foyer.",
+      more: "Plus d'infos",
+      items: [
+        {
+          name: "Fibre Premium",
+          tag: "Fibre optique",
+          text: "La fibre jusqu'au domicile pour un très haut débit stable, idéal pour les usages intensifs.",
+          points: ["Très haut débit", "Latence minimale", "Installation à domicile"],
+          href: "https://www.topnet.tn/offres/detail/haut-debit/fibre-premium",
+        },
+        {
+          name: "Smart Rapido",
+          tag: "ADSL / VDSL",
+          text: "Le haut débit sur ligne téléphonique, disponible largement et rapide à activer.",
+          points: ["Disponible partout", "Activation rapide", "Bon rapport qualité/prix"],
+          href: "https://www.topnet.tn/offres/detail/haut-debit/smart-rapido",
+        },
+      ],
+    },
   },
   usages: {
     eyebrow: "Usages",
@@ -305,11 +337,32 @@ const ar: Dict = {
     eyebrow: "العروض",
     title: "أي صبيب يناسبك؟",
     items: [
-      { name: "الأساسي", who: "شخص إلى شخصين", speed: "20–50 Mbps" },
-      { name: "العائلي", who: "3 إلى 5 أشخاص", speed: "50–100 Mbps" },
+      { name: "الأساسي", who: "شخص إلى شخصين", speed: "10–20 Mbps" },
+      { name: "العائلي", who: "3 إلى 5 أشخاص", speed: "20–100 Mbps" },
       { name: "المحترف والألعاب", who: "استعمال مكثف", speed: "100 Mbps +" },
     ],
     link: "أريد هذا العرض",
+    families: {
+      title: "عائلتان من عروض الصبيب العالي",
+      sub: "اختاروا التقنية ثم الصبيب المناسب لمنزلكم.",
+      more: "مزيد من المعلومات",
+      items: [
+        {
+          name: "Fibre Premium",
+          tag: "الألياف البصرية",
+          text: "الألياف البصرية إلى المنزل لصبيب عالٍ جدًا ومستقر، مثالي للاستعمال المكثف.",
+          points: ["صبيب عالٍ جدًا", "زمن استجابة منخفض", "تركيب في المنزل"],
+          href: "https://www.topnet.tn/offres/detail/haut-debit/fibre-premium",
+        },
+        {
+          name: "Smart Rapido",
+          tag: "ADSL / VDSL",
+          text: "صبيب عالٍ عبر الخط الهاتفي، متوفر على نطاق واسع وسريع التفعيل.",
+          points: ["متوفر في كل مكان", "تفعيل سريع", "جودة بسعر مناسب"],
+          href: "https://www.topnet.tn/offres/detail/haut-debit/smart-rapido",
+        },
+      ],
+    },
   },
   usages: {
     eyebrow: "الاستعمالات",

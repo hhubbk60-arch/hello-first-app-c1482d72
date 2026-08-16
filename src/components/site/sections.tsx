@@ -315,6 +315,55 @@ export function Offers() {
           <SectionHeader eyebrow={t.offers.eyebrow} title={t.offers.title} invert align="center" />
         </Reveal>
         <Reveal className="mt-10">
+          <div className="mx-auto max-w-2xl text-center">
+            <h3 className="text-[20px] font-semibold text-white sm:text-[22px]">{t.offers.families.title}</h3>
+            <p className="mt-2 text-[15px] text-white/70">{t.offers.families.sub}</p>
+          </div>
+        </Reveal>
+        <Reveal className="mt-6">
+          <div className="grid gap-5 md:grid-cols-2">
+            {t.offers.families.items.map((f) => (
+              <div
+                key={f.name}
+                className="rounded-[16px] border border-white/20 bg-white/10 p-6 backdrop-blur-md transition-colors hover:border-white/40"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <h3 className="text-[22px] font-semibold text-white">{f.name}</h3>
+                  <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[12px] font-semibold text-white/80">
+                    {f.tag}
+                  </span>
+                </div>
+                <p className="mt-3 text-[15px] leading-relaxed text-white/75">{f.text}</p>
+                <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+                  {f.points.map((p) => (
+                    <li key={p} className="flex items-center gap-2 text-[14px] text-white/70">
+                      <Check className="h-4 w-4 shrink-0" />
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-6 flex flex-wrap items-center gap-3">
+                  <a
+                    href="#inscription"
+                    className="inline-flex h-11 items-center gap-2 rounded-[10px] bg-white px-5 text-[14px] font-semibold text-brand transition-transform hover:-translate-y-0.5"
+                  >
+                    {t.offers.link}
+                    <ArrowRight className="h-4 w-4 rtl:rotate-180" />
+                  </a>
+                  <a
+                    href={f.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-11 items-center gap-2 rounded-[10px] border border-white/30 px-5 text-[14px] font-semibold text-white transition-colors hover:bg-white/10"
+                  >
+                    {t.offers.families.more}
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+        <Reveal className="mt-10">
           <div className="grid gap-5 md:grid-cols-3">
             {t.offers.items.map((o, i) => {
               const Icon = icons[i] ?? Zap;

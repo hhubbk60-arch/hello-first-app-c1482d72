@@ -315,8 +315,14 @@ export function Offers() {
           <SectionHeader eyebrow={t.offers.eyebrow} title={t.offers.title} invert align="center" />
         </Reveal>
         <Reveal className="mt-10">
+          <div className="mx-auto max-w-2xl text-center">
+            <h3 className="text-[20px] font-semibold text-white sm:text-[22px]">{t.offers.families.title}</h3>
+            <p className="mt-2 text-[15px] text-white/70">{t.offers.families.sub}</p>
+          </div>
+        </Reveal>
+        <Reveal className="mt-6">
           <div className="grid gap-5 md:grid-cols-2">
-            {t.offers.families.items.map((f, i) => (
+            {t.offers.families.items.map((f) => (
               <div
                 key={f.name}
                 className="rounded-[16px] border border-white/20 bg-white/10 p-6 backdrop-blur-md transition-colors hover:border-white/40"
@@ -353,7 +359,6 @@ export function Offers() {
                     {t.offers.families.more}
                   </a>
                 </div>
-                <span className="sr-only">{i}</span>
               </div>
             ))}
           </div>
